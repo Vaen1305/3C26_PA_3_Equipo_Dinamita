@@ -62,4 +62,8 @@ public class MenúPrincipal : MonoBehaviour {
         FoleyPlayer.Play();
         Niveles.SetActive(false);
     }
+    public void MenuPrincipal()
+    {
+        SceneManagerController.Instance.LoadScene("MenúPrincipal");
+    }
 }

@@ -42,12 +42,15 @@ public class CameraController : MonoBehaviour
     float YMin;
     float YMax;
     bool destroyedDificulties;
+
+    MenúPrincipal menú;
     void Start()
     {
         //Encontrar los Game Objects
         Inicio = GameObject.FindGameObjectWithTag("Inicio");
         Final = GameObject.FindGameObjectWithTag("Final");
         Player = GameObject.FindGameObjectWithTag("Player");
+        menú = FindObjectOfType<MenúPrincipal>();
 
         //Definir los límites de movimiento de cámara
         YMin = Inicio.transform.position.y - 0.5f;
@@ -148,10 +151,16 @@ public class CameraController : MonoBehaviour
         Fac.SetActive(true);
         Dif.SetActive(true);
     }
-
     public void FuncSalir()
     {
-        
+        if (menú != null)
+        {
+            menú.MenuPrincipal();
+        }
+        else
+        {
+            Debug.LogError("No se puede llamar a FuncSalir(), menú no está inicializado.");
+        }
     }
 
     public void CambiarDificultad(bool easy)

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour {
 
@@ -71,10 +72,9 @@ public class PlayerController : MonoBehaviour {
             
         }
         if (other.tag == "Finish")
-        {
-            //CameraController cam = ;
-            GameObject.FindWithTag("MainCamera").GetComponent<CameraController>().FinishLevel();
+        {          
             Finish = true;
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         }
     }
 

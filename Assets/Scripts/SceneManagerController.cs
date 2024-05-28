@@ -9,7 +9,6 @@ public class SceneManagerController : MonoBehaviour
 {
     public static SceneManagerController Instance {get; private set;}
     [Header("Fade Components")]
-    [SerializeField] private Image foreground;
     [Header("Fade In")]
     [SerializeField] private float fadeInTime;
     [SerializeField] private Color fadeInColor;
@@ -33,7 +32,6 @@ public class SceneManagerController : MonoBehaviour
     }
 
     private void Start() {
-        imageColor = foreground.color;
         StartCoroutine(FadeCoroutine(fadeOutTime, fadeOutColor));
     }
     
@@ -67,7 +65,6 @@ public class SceneManagerController : MonoBehaviour
 
             yield return new WaitForSeconds(Time.deltaTime);
 
-            foreground.color = Color.Lerp(imageColor, targetColor, t);
         }
         
         onFade?.Invoke();
