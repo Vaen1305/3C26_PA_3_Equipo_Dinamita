@@ -6,7 +6,8 @@ using UnityEngine.SceneManagement;
 
 public class meta : MonoBehaviour
 {
-    public string namenivel;
+   public string namenivel;
+    public GameObject win;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,7 +23,8 @@ public class meta : MonoBehaviour
     {
         if (collision.gameObject.tag=="Player")
         {
-            SceneManager.LoadScene("Levell6");
+            win.SetActive(true);
+           // SceneManager.LoadScene(namenivel);
         }
     }
 }
