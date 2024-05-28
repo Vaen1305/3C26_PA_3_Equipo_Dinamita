@@ -4,7 +4,11 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Finnish
+  - Limits
+  - ResetCol
+  - Enemy
+  - Inicio
+  - Final
   layers:
   - Default
   - TransparentFX
@@ -12,10 +16,10 @@ TagManager:
   - 
   - Water
   - UI
-  - Background
+  - 
+  - 
+  - Cachimbo
   - Colliders
-  - Feedback
-  - Ball
   - 
   - 
   - 
@@ -39,9 +43,15 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Ground
+    uniqueID: 3847640781
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: UI
-    uniqueID: 3315888461
+  - name: Trees
+    uniqueID: 94237979
+    locked: 0
+  - name: GUI
+    uniqueID: 826549901
     locked: 0
