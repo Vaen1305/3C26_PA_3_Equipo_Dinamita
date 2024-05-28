@@ -7,11 +7,15 @@ using System;
 
 public class SceneManagerController : MonoBehaviour
 {
-    public static SceneManagerController Instance {get; private set;}
+    public static SceneManagerController Instance { get; private set; }
+
     [Header("Fade Components")]
+    [SerializeField] private Image foreground;
+
     [Header("Fade In")]
     [SerializeField] private float fadeInTime;
     [SerializeField] private Color fadeInColor;
+
     [Header("Fade Out")]
     [SerializeField] private float fadeOutTime;
     [SerializeField] private Color fadeOutColor;
@@ -19,67 +23,72 @@ public class SceneManagerController : MonoBehaviour
     private Action onFade;
     private Action onLoadScene;
     private Color imageColor;
-    private string scenNameToLoad;
+    private string sceneNameToLoad;
 
-    private void Awake() {
-        if(Instance != this && Instance != null){
+    private void Awake()
+    {
+        if (Instance != this && Instance != null)
+        {
             Destroy(this.gameObject);
         }
-
         Instance = this;
-
         DontDestroyOnLoad(this.gameObject);
     }
 
-    private void Start() {
+    private void Start()
+    {
+        imageColor = foreground.color;
         StartCoroutine(FadeCoroutine(fadeOutTime, fadeOutColor));
     }
-    
-    public void LoadScene(string newSceneName){
-        
-        scenNameToLoad = newSceneName;
+
+    public void LoadScene(string newSceneName)
+    {
+        sceneNameToLoad = newSceneName;
         onFade = CallLoadScene;
         onLoadScene = CallFadeOut;
-
         CallFadeIn();
     }
 
-    private void CallFadeOut(){
+    private void CallFadeOut()
+    {
         StartCoroutine(FadeCoroutine(fadeOutTime, fadeOutColor));
     }
 
-    private void CallFadeIn(){
+    private void CallFadeIn()
+    {
         StartCoroutine(FadeCoroutine(fadeInTime, fadeInColor));
     }
 
-    private void CallLoadScene(){
-        StartCoroutine(LoadSceneCoroutine(scenNameToLoad));
+    private void CallLoadScene()
+    {
+        StartCoroutine(LoadSceneCoroutine(sceneNameToLoad));
     }
-
-    private IEnumerator FadeCoroutine(float targetTime, Color targetColor){
+    private IEnumerator FadeCoroutine(float targetTime, Color targetColor)
+    {
         float totalTime = 0f;
+        Color startColor = foreground.color;
+
         while (totalTime < targetTime)
         {
-            totalTime = Time.deltaTime;
+            totalTime += Time.deltaTime;
             float t = totalTime / targetTime;
-
-            yield return new WaitForSeconds(Time.deltaTime);
-
-        }
-        
-        onFade?.Invoke();
-    }
-
-    private IEnumerator LoadSceneCoroutine(string sceneName){
-        yield return new WaitForSeconds(fadeInTime);
-
-        AsyncOperation asyncLoadLevel = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Single);
-
-        while (!asyncLoadLevel.isDone){
-            Debug.Log("Loading the Scene"); 
+            foreground.color = Color.Lerp(startColor, targetColor, t);
             yield return null;
         }
 
+        foreground.color = targetColor;
+
+        onFade?.Invoke();
+    }
+    private IEnumerator LoadSceneCoroutine(string sceneName)
+    {
+        yield return new WaitForSeconds(fadeInTime);
+        AsyncOperation asyncLoadLevel = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Single);
+        while (!asyncLoadLevel.isDone)
+        {
+            Debug.Log("Loading the Scene");
+            yield return null;
+        }
         onLoadScene?.Invoke();
     }
 }

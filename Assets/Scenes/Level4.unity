@@ -3708,6 +3708,11 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114814076797067178, guid: 32c02bdf28949914496a66c469177c94,
+        type: 3}
+      propertyPath: animator
+      value: 
+      objectReference: {fileID: 709296361}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3768,6 +3773,12 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!95 &709296361 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 95387128474118018, guid: 32c02bdf28949914496a66c469177c94,
+    type: 3}
+  m_PrefabInstance: {fileID: 709296358}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &738049917
 GameObject:
   m_ObjectHideFlags: 0
